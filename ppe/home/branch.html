@@ -1,0 +1,166 @@
+  <div layout-gt-sm="row" layout-align="space-between start">    
+
+    <md-input-container>
+    <label>From</label>
+    <md-datepicker ng-model="brStartDate" name="dateFieldStart" md-min-date="minDateStart" md-max-date="maxDateStart" ng-change="brDateChange(brStartDate);"></md-datepicker>
+    <div ng-messages="myOtherForm.dateField.$error">
+      <div ng-message="valid">The entered value is not a date!</div>
+      <div ng-message="required">This date is required!</div>
+      <div ng-message="mindate">Date is too early!</div>
+      <div ng-message="maxdate">Date is too late!</div>
+    </div>
+  </md-input-container>
+
+  <h4>{{brID}}</h4>
+
+  </div>
+
+  <div layout-gt-sm="row" layout-align="space-between start">    
+
+
+    <md-card md-theme-watch flex-gt-sm="20" flex>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Complete</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row" layout-align="center">
+      <h3><b>{{brComplete}}</b></h3>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex-gt-sm="20" flex>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Cancel</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row" layout-align="center">
+      <h3><b>{{brCancel}}</b></h3>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex-gt-sm="20" flex>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">No-service</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row" layout-align="center">
+      <h3><b>{{brNoservice}}</b></h3>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex-gt-sm="20" flex>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Total</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="row" layout-align="center">
+      <h3><b>{{brTotal}}</b></h3>
+      </md-card-content>
+    </md-card>
+
+  </div>
+
+
+  <div layout-gt-sm="row" layout-align="space-between start">    
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasHorBarJobBr"></canvas>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasVerCounterStack"></canvas>
+      </md-card-content>
+    </md-card>
+
+  </div>
+
+  <div layout-gt-sm="row" layout-align="space-between start">    
+
+    <!-- <md-card md-theme-watch flex-gt-sm="60" flex> -->
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasLineCmp"></canvas>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasVerBar"></canvas>      
+      </md-card-content>
+    </md-card>
+
+  </div>
+
+
+<!--   <div layout-gt-sm="row" layout-align="space-between start">    
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasHorBarJob"></canvas>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasHorBarJob"></canvas>
+      </md-card-content>
+    </md-card>
+
+  </div> -->
+
+<!--   <div layout-gt-sm="row" layout-align="space-between start">    
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasCombo"></canvas>
+      </md-card-content>
+    </md-card>
+
+    <md-card md-theme-watch flex>
+      <md-card-content>
+        <canvas id="canvasVerBar"></canvas>      
+      </md-card-content>
+    </md-card>
+
+  </div> -->
+
+  <div layout-gt-sm="row" layout-align="center center" style="margin-top: 20px;"> 
+
+
+  <div grid-data id='gridOneBranch' grid-options="gridOneBranch" grid-actions="gridOneBrs" flex-gt-sm="70" flex>
+  <!-- <div  ng-show='showTable' grid-data id='reportGridTemplate' grid-options="reportGridTemplate" grid-actions="reportGridActions"> -->
+
+    <table class="table table-striped">  
+      <thead>
+        <tr ng-repeat="line in branchTableHeader">
+          <th ng-repeat="header in line" 
+              rowspan="{{ header.rowSpan }}" 
+              colspan="{{ header.colSpan }}" 
+              style="text-align: {{header.align}};">{{ header.headText }}</th>
+        </tr>
+      </thead>
+
+      <tbody grid-item>
+        <tr> 
+          <td width="{{item.idSpan}}" ng-bind="item.branchID" style="color: {{item.idColor}}"></td>
+          <td width="{{item.nameSpan}}" ng-bind="item.branchName" style="color: {{item.nameColor}}"></td> 
+          <td ng-repeat="one in item.firstLine track by $index" ng-bind="one"></td>
+        </tr>
+        <tr ng-repeat="one in item.data track by $index"> 
+          <td colspan="2" ng-bind="one.text" style="color: {{one.dColor}}; text-align: {{one.align}};"></td>
+          <td ng-repeat="two in one.value track by $index" ng-bind="two" style="color: {{one.dColor}}; text-align: center;"></td>
+        </tr >
+      </tbody> 
+
+    </table>
+
+  </div>
+
+  </div>

@@ -1,0 +1,128 @@
+html, body {  
+	overflow-x: hidden; 
+	overflow-y: hidden;
+  height: 100%; 
+  width: 100%; 
+  margin: 0; 
+} 
+/*div { 
+	height: 100%; 
+	width: 100%; 
+}
+*/
+/*.myClass .md-button {
+  text-transform: capitalize !important;
+}
+*/
+/* .myClass md-toolbar {
+  background-color: #00BCD4 !important;
+}
+*/
+
+.myClass md-grid-list {
+  margin: 8px; }
+
+.myClass .gray {
+  background: #FAFAFA; 
+}
+
+.myClass .green {
+  background: #b9f6ca; 
+}
+
+.myClass .yellow {
+  background: #ffff8d; 
+}
+
+.myClass .blue {
+  background: blue; 
+}
+
+.myClass .purple {
+  background: #b388ff; 
+}
+
+.myClass .red {
+  background: #ff8a80; 
+}
+
+.myClass md-grid-tile {
+  transition: all 400ms ease-out 50ms; 
+}
+
+.myClass md-nav-item {
+  background: #ff8a80; 
+}
+
+.myClass md-nav-bar md-nav-ink-bar {
+  /*background: transparent;*/
+  background: white;
+  /*color: white !important;*/
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+
+.margin-bottom-basic {
+    margin-bottom: 15px;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.items-per-page {
+    margin-left: 15px;
+}
+
+.sortable:after {
+    font: 14px/1 FontAwesome;
+    content: "\f0dc";
+}
+
+.sortable.sort-ascent:after {
+    content: '\f0de';
+    vertical-align: bottom;
+}
+
+.sortable.sort-descent:after {
+    content: "\f0dd";
+    vertical-align: top;
+}
+
+/*.myClass md-grid-tile {
+  height: 100%; 
+  width: 100%;
+}
+*/
+
+/*
+        .myClass pre {
+          background-color: lightgray;
+        }
+        
+        .myClass .pink {
+          background-color: lightpink;
+        }
+        
+        .myClass .green {
+          background-color: lightgreen;
+        }
+        
+        .myClass .blue {
+          background-color: lightblue;
+        }
+        
+        .myClass .yellow {
+          background-color: lightyellow;
+        }
+        
+        .myClass .gray {
+          background-color: white
+        }
+
+        .myClass md-grid-tile {
+          transition: all 400ms ease-out 50ms; 
+        }
+*/

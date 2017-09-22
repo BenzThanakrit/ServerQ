@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Home",
+    "checked": true
+  },
+  {
+    "name": "Realtime",
+    "checked": true
+  },
+  {
+    "name": "Report",
+    "checked": true
+  },
+  {
+    "name": "Setting",
+    "checked": true,
+    "children": [
+      {
+        "name": "Add-Remove user",
+        "checked": true
+      },
+      {
+        "name": "Branch config",
+        "checked": true
+      }
+    ]
+  }
+]
+

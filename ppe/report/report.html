@@ -1,0 +1,140 @@
+<md-progress-linear class="md-accent" ng-disabled="rpProgressBar" md-mode="indeterminate"></md-progress-linear>  
+
+<div layout-gt-sm="row" layout-align="space-between start">
+
+  <div layout="row" layout-align="space-between start">  
+  <md-input-container class="md-block">
+    <label>Srart date</label>
+    <md-datepicker ng-model="rpStartDate" name="dateFieldStart" md-min-date="minDateStart" md-max-date="maxDateStart" ng-change="gotoReport(rpStartDate, rpStopDate, item.name)">
+    </md-datepicker>
+    <div ng-messages="myOtherForm.dateField.$error">
+      <div ng-message="valid">The entered value is not a date!</div>
+      <div ng-message="required">This date is required!</div>
+      <div ng-message="mindate">Date is too early!</div>
+      <div ng-message="maxdate">Date is too late!</div>
+    </div>
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Stop date</label>
+    <md-datepicker ng-model="rpStopDate" name="dateFieldStop" md-min-date="minDateStop" md-max-date="maxDateDtop" ng-change="gotoReport(rpStartDate, rpStopDate, item.name)">
+    </md-datepicker>
+    <div ng-messages="myOtherForm.dateField.$error">
+      <div ng-message="valid">The entered value is not a date!</div>
+      <div ng-message="required">This date is required!</div>
+      <div ng-message="mindate">Date is too early!</div>
+      <div ng-message="maxdate">Date is too late!</div>
+    </div>
+  </md-input-container>          
+  </div>
+
+  <md-input-container class="md-block" flex flex-gt-sm="60">
+    <label>Select template</label>
+    <!-- <md-select ng-model="selectedItemQ2" md-selected-text="getSelectedTextQ2()"> -->
+    <md-select ng-model="item.name" ng-change="gotoReport(rpStartDate, rpStopDate, item.name)">
+      <!-- <md-optgroup label="Please select"> -->
+        <md-option ng-disabled="item.disable" ng-value="item.name" ng-repeat="item in reportName track by $index">{{item.name}}</md-option>
+      <!-- </md-optgroup> -->
+    </md-select>
+  </md-input-container>          
+
+</div>         
+
+<!-- <div ng-include='selectedType.url'></div> -->
+
+<!-- <md-content class="md-padding"> -->
+
+  <div ng-show='showGraph' layout="row" layout-align="center start">
+
+    <md-card md-theme-watch flex-gt-sm="70" flex>
+      <md-card-content>
+        <canvas id="graphReportCombo"></canvas>
+      </md-card-content>
+    </md-card>    
+  </div>
+
+  <div  ng-show='showTable' grid-data id='reportGridTemplate' grid-options="reportGridTemplate" grid-actions="reportGridActions">
+
+  <div layout="row" layout-align="center start">
+    <md-input-container flex-gt-sm="60" flex>
+      <label>Select branch to show graph.</label>
+      <md-select ng-model="reportBranch" ng-change="plotGraph(reportBranch, item.name, filtered)">
+        <md-option ng-repeat="item in filtered track by $index" value="{{item.branchID}}">{{item.branchID+'-'+item.branchName}}</md-option>
+      </md-select>
+    </md-input-container>          
+  </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="orderIdFilter">Search by ID #</label>
+          <input id="orderIdFilter" type="text" class="form-control order-search-box"
+                 placeholder="Enter ID #"
+                 ng-change="reportGridActions.filter(); item.branchID = ''"
+                 ng-model="branchID"
+                 filter-by="branchID"
+                 filter-type="text">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span class="items">{{filtered.length}} items total</span>
+      </div>
+      <div class="col-md-9 text-right">
+        <form class="form-inline pull-right margin-bottom-basic">
+          <div class="form-group">
+            <grid-pagination max-size="5"
+                             boundary-links="true"
+                             class="pagination-sm"
+                             total-items="paginationOptions.totalItems"
+                             ng-model="paginationOptions.currentPage"
+                             ng-change="reloadGrid()"
+                             items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+          </div>
+          <div class="form-group items-per-page">
+            <label for="itemsOnPageSelect1">Items per page:</label>
+            <select id="itemsOnPageSelect1" class="form-control input-sm" ng-init="paginationOptions.itemsPerPage = '10'" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+              <option>10</option>
+              <option>25</option>
+              <option>50</option>
+              <option>75</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <table class="table table-striped">  
+      <thead>
+        <tr ng-repeat="line in tableHeader">
+          <th ng-repeat="header in line" 
+              rowspan="{{ header.rowSpan }}" 
+              colspan="{{ header.colSpan }}" 
+              style="text-align: {{header.align}};">{{ header.headText }}</th>
+        </tr>
+      </thead>
+
+      <tbody grid-item>
+        <!-- <tr style="text-align: center;">  -->
+        <tr> 
+          <td width="{{item.idSpan}}" ng-bind="item.branchID" style="color: {{item.idColor}}"></td>
+          <td width="{{item.nameSpan}}" ng-bind="item.branchName" style="color: {{item.nameColor}}"></td> 
+          <!-- <td ng-repeat="one in item.firstLine track by $index" colspan="{{one.colSpan}}" ng-bind="one.value"></td> -->
+          <td ng-repeat="one in item.firstLine track by $index" ng-bind="one"></td>
+        </tr>
+        <!-- <tr ng-repeat="one in item.data track by $index" style="text-align: center;">  -->
+        <tr ng-repeat="one in item.data track by $index"> 
+          <td colspan="2" ng-bind="one.text" style="color: {{one.dColor}}; text-align: {{one.align}};"></td>
+          <td ng-repeat="two in one.value track by $index" ng-bind="two" style="color: {{one.dColor}}; text-align: center;"></td>
+        </tr >
+      </tbody> 
+
+    </table>
+
+  </div>
+
+<!-- </md-content> -->
+
+

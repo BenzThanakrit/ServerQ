@@ -1,0 +1,124 @@
+	<div ng-repeat='item in roleList track by $index' layout="row" layout-align="start start">
+	<!-- <div ng-repeat='item in roleList track by $index' layout="row"> -->
+
+
+		<md-input-container flex="30">
+		<!-- <md-input-container> -->
+ 			<label>Role name</label>
+ 			<input ng-disabled="item.textDis" type="text" ng-model="item.roleName">
+		</md-input-container>
+
+    <!-- <div flex="30"> -->
+    <div style="margin-top: 20px;" flex="30">
+	 	  <ul class="tree">
+				<!-- <node-tree children="tc.tree"></node-tree> -->
+				<node-tree children="item.roleLevel"></node-tree>
+  		</ul>
+    </div>
+
+
+<!-- 		<md-input-container>
+			<md-icon ng-model='item._id' ng-click='gotoRemoveRole($index, roleList, $event)' md-svg-icon="images/ic_delete_forever_48px.svg"></md-icon>
+		</md-input-container> -->
+
+	</div>
+
+
+	<div layout="row" layout-align="space-between start">					
+
+<!--   	<div>
+			<md-icon ng-click='gotoAddRole()' md-svg-icon="images/ic_add_box_48px.svg"></md-icon>
+		</div> -->
+
+		<div>
+			<md-icon ng-click="gotoSaveRole($event, roleList)" md-svg-icon="images/ic_system_update_alt_48px.svg"></md-icon>
+		</div>
+
+	</div>
+
+
+    <md-divider style="margin-top: 20px;"></md-divider>
+
+
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">User</div>
+    </md-toolbar>      
+
+
+<md-content layout-padding>
+<div>
+<form name="userForm">
+
+  <div ng-repeat="employee in employeeList track by $index">    
+  <!-- <div layout-gt-sm="row" layout-align="space-between center"> -->
+  <div layout-gt-sm="row" layout-align="space-between start">
+
+    <md-input-container class="md-block" flex-gt-sm="15" flex>
+      <label>User-name</label>
+      <input ng-model="employee.userName">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex flex-gt-sm ="30" flex>
+      <label>Full-name</label>
+      <input ng-model="employee.fullName">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm="15" flex>
+      <label>Password</label>
+      <input type="password" ng-model="employee.passTemp">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm="15" flex>
+      <label>Confirm</label>
+      <input type="password" ng-model="employee.passConfirm">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm="15" flex>
+      <label>Role-level</label>
+      <md-select ng-model="employee.roleLevel">
+<!--         <md-option ng-repeat="role in ['SV Admin', 'SV Assist', 'BR Admin', 'BR User'] track by $index" value="{{role}}">
+          {{role}}
+        </md-option> -->
+        <md-option ng-repeat="role in roleList track by $index" value="{{role.roleName}}">
+          {{role.roleName}}
+        </md-option>      </md-select>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm="10" flex>
+      <label>Status</label>
+      <md-select ng-model="employee.userState">
+        <md-option ng-repeat="role in ['Enable', 'Disable'] track by $index" value="{{role}}">
+          {{role}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <div>
+      <md-icon ng-model='employee.userName' ng-click='removeEmployee($index)' md-svg-icon="/images/ic_delete_forever_48px.svg"></md-icon>
+    </div>
+
+  </div>
+  </div>
+
+</form>
+</div>
+</md-content>
+
+<div>
+<md-divider></md-divider> 
+</div>
+
+  <div layout-gt-sm="row" layout-align="space-between center">
+<!--     <md-input-container>
+      <md-button class="md-raised md-primary" ng-click="addEmployee()">Add</md-button>
+    </md-input-container> -->
+    <div>
+    <md-icon ng-click="addEmployee()" md-svg-icon="/images/ic_add_box_48px.svg"></md-icon>
+    <label>Add user</label>
+    </div>
+
+    <md-input-container>
+      <md-button class="md-raised" ng-click="saveEmployee($event)">Save</md-button>
+    </md-input-container>
+  </div>
+

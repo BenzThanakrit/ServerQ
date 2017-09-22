@@ -1,0 +1,274 @@
+  <div layout-gt-sm="row" layout-align="center start"> 
+
+  <!-- <md-input-container class="md-block" flex flex-gt-sm="70"> -->
+  <md-input-container flex-gt-sm="70" flex>
+    <label>Select branch</label>
+
+      <md-select ng-model="brSelect" ng-change="gotoBranchOnline(brSelect)">
+        <md-option  ng-repeat="item in branchList track by $index" value="{{item.branchID}}">{{ item.branchID+'-'+item.branchName }}</md-option>
+
+    </md-select>
+  </md-input-container>          
+
+  </div>
+
+
+  <div layout-gt-sm="row" layout-align="center start"> 
+
+    <md-card md-theme-watch flex-gt-sm="70" flex>
+    <!-- <md-card md-theme-watch flex> -->
+      <md-card-content>
+        <canvas id="canvasRealtimeCombo"></canvas>
+      </md-card-content>
+    </md-card>
+
+  </div>
+
+
+    <md-card md-theme-watch>
+
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Counter</span>
+        </md-card-title-text>
+      </md-card-title>
+
+      <md-card-content>
+      <div grid-data id='gridCounter' grid-options="gridCounter" grid-actions="gridCnt">
+        <table class="table table-striped">   
+          <thead>
+            <tr>
+              <th rowspan="2">Counter</th>
+              <th rowspan="2">User-name</th>
+              <th rowspan="2">Full-name</th>
+              <th rowspan="2">Status</th>
+              <th colspan="4" style="text-align: center;">Queue in process</th>
+              <th rowspan="2" style="text-align: center;">Complete</th>
+              <th rowspan="2" style="text-align: center;">Cancel</th>
+              <th rowspan="2" style="text-align: center;">Total</th>
+            </tr>
+            <tr>
+              <th style="text-align: center;">Service</th>
+              <th style="text-align: center;">Wait</th>
+              <th style="text-align: center;">Trans</th>
+              <th style="text-align: center;">Hold</th>
+<!--               <th style="text-align: center;">Complete</th>
+              <th style="text-align: center;">Cancel</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr grid-item>
+              <td ng-bind="item.id"></td>
+              <td ng-bind="item.userName"></td>
+              <td width="20%" ng-bind="item.fullName"></td>
+              <td width="10%" ng-bind="item.status"></td>
+              <td ng-bind="item.service" style="text-align: center;"></td>
+              <td ng-bind="item.waiting" style="text-align: center;"></td>
+              <td ng-bind="item.transfer" style="text-align: center;"></td>
+              <td ng-bind="item.hold" style="text-align: center;"></td>
+              <td ng-bind="item.complete" style="text-align: center;"></td>
+              <td ng-bind="item.cancel" style="text-align: center;"></td>
+              <td ng-bind="item.total" style="text-align: center;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
+      </md-card-content>
+    </md-card> 
+
+
+  <div layout-gt-sm="row" layout-align="center start"> 
+
+
+    <md-card md-theme-watch flex="40">
+
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Employee</span>
+        </md-card-title-text>
+      </md-card-title>
+
+      <md-card-content>
+      <div grid-data id='gridEmployee' grid-options="gridEmployee" grid-actions="gridEmp">
+        <table class="table table-striped">   
+          <thead>
+            <tr>
+              <th>User-name</th>
+              <th>Full-name</th>
+              <!-- <th style="text-align: center;">Counter</th> -->
+              <th style="text-align: center;">Complete</th>
+              <th style="text-align: center;">Cancel</th>
+              <th style="text-align: center;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr grid-item>
+              <td ng-bind="item.userName"></td>
+              <td ng-bind="item.fullName"></td>
+              <!-- <td ng-bind="item.counterID" style="text-align: center;"></td> -->
+              <td ng-bind="item.complete" style="text-align: center;"></td>
+              <td ng-bind="item.cancel" style="text-align: center;"></td>
+              <td ng-bind="item.total" style="text-align: center;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
+      </md-card-content>
+    </md-card> 
+
+
+    <md-card md-theme-watch flex="60">
+
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Waiting-queue</span>
+        </md-card-title-text>
+      </md-card-title>
+
+      <md-card-content>
+      <div grid-data id='gridQtoday' grid-options="gridQtoday" grid-actions="gridQtd">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="items">{{filtered.length}} items total</span>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                                 boundary-links="true"
+                                                 class="pagination-sm"
+                                                 total-items="paginationOptions.totalItems"
+                                                 ng-model="paginationOptions.currentPage"
+                                                 ng-change="reloadGrid()"
+                                                 items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect1">Items per page:</label>
+                                <select id="itemsOnPageSelect1" class="form-control input-sm" ng-init="paginationOptions.itemsPerPage = '10'" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+        <table class="table table-striped">   
+          <thead>
+            <tr>
+              <th>Queue</th>
+              <th>Status</th>
+              <th>Press-time</th>
+              <th>Waiting-time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr grid-item>
+              <td ng-bind="item.number"></td>
+              <td ng-bind="item.status"></td>
+              <td ng-bind="item.pressTime"></td>
+              <td ng-bind="item.waitingTime"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
+      </md-card-content>
+    </md-card> 
+
+
+  </div>
+
+    <!-- <md-card md-theme-watch style="height: 100%; width: 100%; background: #EEEEEE;"> -->
+<!--     <md-card md-theme-watch>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Online</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+
+      <div grid-data id='gridBranch' grid-options="gridBranch" grid-actions="gridBrs">
+
+            <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="orderIdFilter">Search by ID #</label>
+                    <input id="orderIdFilter" type="text" class="form-control order-search-box"
+                           placeholder="Enter ID #"
+                           ng-change="gridBrs.filter()"
+                           ng-model="branchID"
+                           filter-by="branchID"
+                           filter-type="text">
+                </div>
+            </div>
+            </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="items">{{filtered.length}} items total</span>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                                 boundary-links="true"
+                                                 class="pagination-sm"
+                                                 total-items="paginationOptions.totalItems"
+                                                 ng-model="paginationOptions.currentPage"
+                                                 ng-change="reloadGrid()"
+                                                 items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect1">Items per page:</label>
+                                <select id="itemsOnPageSelect1" class="form-control input-sm" ng-init="paginationOptions.itemsPerPage = '10'" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+        <table class="table table-striped">
+   
+          <thead>
+            <tr>
+              <th rowspan="2">ID</th>
+              <th rowspan="2">Name</th>
+              <th colspan="3" style="text-align: center;">Counter</th>
+              <th rowspan="2" style="text-align: center;">Employee</th>
+              <th rowspan="2" style="text-align: center;">Q.in.BR</th>
+              <th rowspan="2" style="text-align: right;">IP</th>
+            </tr>
+            <tr>
+              <th style="text-align: center;">Total</th>
+              <th style="text-align: center;">Logon</th>
+              <th style="text-align: center;">Service</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr grid-item>
+              <td width="10%" ng-bind="item.branchID"></td>
+              <td width="30%" ng-bind="item.branchName"></td>
+              <td width="10%" ng-bind="item.cntTotal" style="text-align: center;"></td>
+              <td width="10%" ng-bind="item.cntLogon" style="text-align: center;"></td>
+              <td width="10%" ng-bind="item.cntService" style="text-align: center;"></td>
+              <td width="10%" ng-bind="item.empTotal" style="text-align: center;"></td>
+              <td width="10%" ng-bind="item.qWait" style="text-align: center;"></td>
+              <td width="10%" ng-bind="item.clientIP" style="text-align: right;"></td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+      </md-card-content>
+    </md-card>  -->

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>PPE. | Q-server v.1.0.0 </title>
+    <link rel="stylesheet" href="/angular/angular-material/angular-material.min.css" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel='stylesheet' href='/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link rel="Stylesheet" href="/stylesheets/angular-data-grid.bootstrap.css" /> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--     <style>
+      body { font-family: 'FontAwesome'; }
+    </style> -->
+  </head>
+
+  <body ng-app="myApp"  layout="column"  ng-controller="serverController as ctrl" class="serverController" ng-cloak>
+
+  <!-- <div layout="row" layout-align="space-between start" class="md-padding"> -->
+
+  <!-- <div >  class="md-hue-2"    -->
+    <md-toolbar class="md-toolbar-tools md-hue-2" layout="row" layout-align="space-between center">
+
+    <div>      
+
+      <div layout="row" layout-align="space-between center">        
+      <!-- <md-toolbar class="md-toolbar-tools  md-hue-3"> -->
+        <md-button ng-disabled="ctrl.settButton" class="md-icon-button" aria-label="Open setting panel" ng-click="ctrl.toggleRight()">
+          <md-tooltip>Open setting panel</md-tooltip>
+          <md-icon md-svg-icon="/images/ic_menu_48px.svg"></md-icon>
+        </md-button>
+
+        <h4>Qserver - {{ ctrl.menuText }}</h4>
+      <!-- </md-toolbar> -->
+      </div>
+
+
+    </div>
+
+    <md-nav-bar md-theme="docs-dark" md-selected-nav-item="ctrl.selectedItem" nav-bar-aria-label="navigation links"> 
+    <!-- <md-nav-bar md-selected-nav-item="ctrl.selectedItem" nav-bar-aria-label="navigation links">  -->
+      <md-nav-item ng-disabled="ctrl.menuHome" md-nav-click="ctrl.gotoMenu('home');" name="home">Home</md-nav-item>
+      <md-nav-item ng-disabled="ctrl.menuRealtime" md-nav-click="ctrl.gotoMenu('realtime');" name="realtime">Realtime</md-nav-item>
+      <md-nav-item ng-disabled="ctrl.menuReport" md-nav-click="ctrl.gotoMenu('report');" name="report">Report</md-nav-item>
+      <md-nav-item md-nav-click="ctrl.gotoMenu('login');" name="login">{{ctrl.loginText}}</md-nav-item>
+    </md-nav-bar>
+<!--     <md-content flex style="width: 1024px; background: white;">
+      <div ui-view ></div>      
+    </md-content>
+ -->
+
+    </md-toolbar>
+
+    <md-content flex layout="column" class="md-padding" layout-align="start center"> 
+      <div ui-view style="width: 1024px;"></div>      
+    </md-content>
+<!-- <div layout="column" layout-align="center center">
+    <md-content flex style="width: 1024px;">
+      <div ui-view ></div>      
+    </md-content>
+</div> --> 
+
+ <md-sidenav class="md-sidenav-left md-whiteframe-z2"
+    md-component-id="right">
+
+  <md-toolbar class="md-toolbar-tools md-hue-2" layout="row" >
+   <!-- <div class="md-toolbar-tools"> -->
+        <h2>
+          <span>Setting</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Close setting panel" ng-click="ctrl.toggleRight()">
+          <md-tooltip>Close setting panel</md-tooltip>
+           <md-icon md-svg-icon="images/ic_clear_48px.svg"></md-icon>
+        </md-button>
+       <!-- </div> -->
+  </md-toolbar> 
+
+  <md-menu-content>
+
+    <md-menu-item>
+      <md-button ng-disabled="ctrl.addRemoveUser" ng-click="ctrl.toggleRight(); ctrl.gotoMenu('setuser')">
+        <md-icon md-svg-icon="images/add-user-button.svg"></md-icon>
+        User
+      </md-button>
+    </md-menu-item>
+
+    <md-menu-item>
+      <md-button ng-disabled="ctrl.branchConfig" ng-click="ctrl.toggleRight(); ctrl.gotoMenu('setbranch')">
+        <md-icon md-svg-icon="images/settings-cogwheel-button.svg"></md-icon>
+        Branch
+      </md-button>
+    </md-menu-item>
+
+    <md-divider></md-divider>
+
+  </md-menu-content>
+
+</md-sidenav>
+
+
+       
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!--jquery -->
+    <script src="/javascripts/jquery-1.11.3.min.js" type="text/javascript"></script>
+
+    <!-- angular -->
+    <script src="/angular/angular/angular.min.js" type="text/javascript"></script>
+    <script src="/angular/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+    <script src="/angular/angular-aria/angular-aria.min.js" type="text/javascript"></script>
+    <script src="/angular/angular/angular-messages.min.js" type="text/javascript"></script>
+    <script src="/angular/angular-material/angular-material.min.js" type="text/javascript"></script>
+    <script src="/angular/angular-route/angular-ui-router.js" type="text/javascript"></script>
+
+    <!-- boottrap-->
+    <script src="/javascripts/ui-bootstrap-tpls-0.14.3.js" type="text/javascript" ></script>  
+     <script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>  
+
+    <!-- Data grid (Table)-->
+    <script src="/angular/data-grid/pagination.js" type="text/javascript"></script>
+    <script src="/angular/data-grid/dataGrid.js" type="text/javascript"></script>
+
+    <!-- angular graph -->
+    <script src="/angular/chart/Chart.bundle.min.js" type="text/javascript"></script>
+
+    <!-- <script src="/public/angular/chart/Chart.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/public/angular/chart/angular-chart.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/public/angular/3dchart/plotly-latest.min.js" type="text/javascript"></script>     -->
+
+    <!-- Code control -->
+    <script src="/index.js" type="text/javascript"></script>
+    <script src="/utils.js" type="text/javascript"></script>
+    <script src="/home/home.js" type="text/javascript"></script>
+    <script src="/realtime/realtime.js" type="text/javascript"></script>
+    <script src="/report/report.js" type="text/javascript"></script>
+    <script src="/setting/setting.js" type="text/javascript"></script>
+
+  </body>
+</html>

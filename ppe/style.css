@@ -1,0 +1,37 @@
+html, body {  
+	overflow-x: hidden; 
+	overflow-y: hidden;
+  height: 100%; 
+  width: 100%; 
+  margin: 0; 
+  /*background: linear-gradient(to bottom right, rgb(15, 79, 150), white); */
+} 
+
+.serverController .md-button {
+  text-transform: capitalize !important;
+  /*margin-top: 2px;*/
+  /*text-align: center;*/
+  /*height: 30px;*/
+}
+
+.serverController md-toolbar {
+  /*background-color: white !important;*/
+  /*min-height: 30px;*/
+}
+
+.serverController md-nav-bar .md-nav-bar {
+  /*background: black;*/
+}
+
+ul.tree {
+    list-style: none;
+}
+
+ul.tree > li {
+    margin: 10px;
+}
+
+ul.tree > li > span {
+    cursor: pointer;
+}
+
